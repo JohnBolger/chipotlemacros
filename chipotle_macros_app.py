@@ -6,6 +6,7 @@ Created on Fri Feb 24 17:35:08 2023
 """
 
 import pandas as pd
+import numpy as np
 from pulp import *
 import matplotlib.pyplot as plt
 import streamlit as st
@@ -16,7 +17,10 @@ url = "https://raw.githubusercontent.com/JohnBolger/chipotlemacros/main/chipotle
 nut_facts = pd.read_csv(url)
 
 st.title('Chipotle Macros Tool')
-
+st.text('''          Enter the macronutrient requirements for your chipotle order along with an item 
+        that you must have and an item that you don't want in your order. This app 
+        will optimize your order for the least amount of calories and provide you with
+        the nutrition facts for your order.''')
 
 # Convert the item names to a list
 MenuItems = nut_facts.Item.tolist()
@@ -38,9 +42,9 @@ MenuItems_vars = LpVariable.dicts("MenuItems",MenuItems,lowBound=0,
 
 st.sidebar.write('Constraints')
 
-must_have = st.sidebar.selectbox('"Must-have" items', nut_facts['Item'])
+must_have = st.sidebar.selectbox('"Must-have" item', nut_facts['Item'])
 
-dont_want = st.sidebar.selectbox('"Don\'t want" items', nut_facts['Item'])
+dont_want = st.sidebar.selectbox('"Don\'t want" item', nut_facts['Item'])
 
 TotalFat_min = st.sidebar.number_input('Total Fat Min', value=10)
 TotalFat_max = st.sidebar.number_input('Total Fat Max', value=70)
@@ -95,10 +99,6 @@ for v in prob.variables():
 df_results = pd.DataFrame([varsdict])
 
 
-st.header('Total Calories: ' + str(objective_function_value))
-
-
-
 # Create just a figure and only one subplot
 fig, ax = plt.subplots(figsize=(15,10))
 
@@ -139,5 +139,62 @@ for circle, label in zip(circles, labels):
     plt.annotate(value, (x,y-.1 ) ,va='center', ha='center', bbox=dict(facecolor='white', edgecolor='black', boxstyle='round', pad=.5))
 
 
-st.pyplot(fig)
-st.write([i[10:] for i in varsdict.keys()])
+
+
+# Make list at bottom
+quant = [i for i in varsdict.values()]
+
+order = ''
+for i in range(0,len(quant)): order += '\n' + str(int(quant[i])) + ' ' + labels[i] + '\n'
+
+
+# Calcualte nutrition facts
+final = nut_facts[['Total Calories (cal)', 'Total Fat Calories (cal)', 'Total Fats (g)',
+       'Saturated Fats (g)', 'Non-Saturated Fats (g)', 'Trans Fats (g)',
+       'Cholesterol (mg)', 'Sodium (g)', 'Carbohydrates (g)',
+       'Dietary Fiber (g)', 'Sugar (g)', 'Protein (g)']]
+
+ind_labels = labels
+for i in labels: ind_labels[labels.index(i)] = nut_facts["Item"].to_list().index(i)
+
+# Create array of zeros
+nut_matrix = np.zeros([1,12])
+
+# Use matrix operations to fill the matrix with the nutrition facts
+for i in range(len(ind_labels)): nut_matrix += np.asarray(final.iloc[ind_labels[i]].to_list()) * quant[i]
+
+# Create dataframe for final nutrition facts
+
+df_order = pd.DataFrame(np.int_(nut_matrix))
+df_order.columns = ['Total Calories (cal)', 'Total Fat Calories (cal)', 'Total Fats (g)',
+       'Saturated Fats (g)', 'Non-Saturated Fats (g)', 'Trans Fats (g)',
+       'Cholesterol (mg)', 'Sodium (g)', 'Carbohydrates (g)',
+       'Dietary Fiber (g)', 'Sugar (g)', 'Protein (g)']
+
+# CSS to inject contained in a string
+hide_table_row_index = """
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+            </style>
+            """
+# Inject CSS with Markdown
+st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
+
+st.header("Order: " + order)
+
+st.header("Nutrition Facts:")
+
+
+col1, col2, col3, col4, col5 = st.columns(5)
+col1.metric("Calories", str(int(nut_matrix[0,0])))
+col2.metric("Protein", str(int(nut_matrix[0,11])) + "g")
+col3.metric("Fat", str(int(nut_matrix[0,2])) + "g")
+col4.metric("Carbs", str(int(nut_matrix[0,8])) + "g")
+col5.metric("Sodium", str(int(nut_matrix[0,7])) + "mg")
+
+st.write("Full:")
+
+st.table(df_order)
+
