@@ -1,29 +1,29 @@
 Menu Type,Menu Category,Item,Size Type,Per Serving Size,Total Calories (cal),Total Fat Calories (cal),Total Fats (g),Saturated Fats (g),Non-Saturated Fats (g),Trans Fats (g),Cholesterol (mg),Sodium (g),Carbohydrates (g),Dietary Fiber (g),Sugar (g),Protein (g)
 Adult,Burrito,Tortilla,Regular,1 ea,320,80,9,0.5,8.5,0,0,600,50,3,0,8
-Adult,Rice,Cilantro-Lime Brown Rice,Regular,4 oz,210,50,6,1,5,0,0,190,36,2,0,4
-Adult,Rice,Cilantro-Lime White Rice,Regular,4 oz,210,35,4,0.5,3.5,0,0,350,40,1,0,4
-Adult,Beans,Black Beans,Regular,4 oz,130,15,1.5,0,1.5,0,0,210,22,7,2,8
-Adult,Beans,Pinto Beans,Regular,4 oz,130,10,1.5,0,1.5,0,0,210,21,8,1,8
-Adult,Veggies,Fajita Vegetables,Regular,2.5 oz,20,0,0,0,0,0,0,150,5,1,2,1
+Adult,Rice,Cilantro-Lime_Brown_Rice,Regular,4 oz,210,50,6,1,5,0,0,190,36,2,0,4
+Adult,Rice,Cilantro-Lime_White_Rice,Regular,4 oz,210,35,4,0.5,3.5,0,0,350,40,1,0,4
+Adult,Beans,Black_Beans,Regular,4 oz,130,15,1.5,0,1.5,0,0,210,22,7,2,8
+Adult,Beans,Pinto_Beans,Regular,4 oz,130,10,1.5,0,1.5,0,0,210,21,8,1,8
+Adult,Veggies,Fajita_Vegetables,Regular,2.5 oz,20,0,0,0,0,0,0,150,5,1,2,1
 Adult,Protein,Barbacoa,Regular,4 oz,170,60,7,2.5,4.5,0,65,530,2,1,0,24
 Adult,Protein,Chicken,Regular,4 oz,180,60,7,3,4,0,125,310,0,0,0,32
 Adult,Protein,Carnitas,Regular,4 oz,210,120,12,7,5,0,65,450,0,0,0,23
 Adult,Protein,Steak,Regular,4 oz,150,60,6,2.5,3.5,0,80,330,1,1,0,21
-Adult,Protein,Garlic Guajillo Steak,Regular,4 oz,250,130,15,5,10,0,80,480,3,2,1,27
-Adult,Protein,Pollo Asado,Regular,4 oz,210,100,12,3,9,0,80,740,3,3,0,22
+Adult,Protein,Garlic_Guajillo_Steak,Regular,4 oz,250,130,15,5,10,0,80,480,3,2,1,27
+Adult,Protein,Pollo_Asado,Regular,4 oz,210,100,12,3,9,0,80,740,3,3,0,22
 Adult,Protein,Sofritas,Regular,4 oz,150,80,10,1.5,8.5,0,0,560,9,3,5,8
-Adult,Toppings,Fresh Tomato Salsa,Regular,3.5 oz,25,0,0,0,0,0,0,550,4,1,1,0
-Adult,Toppings,Roasted Chili-Corn Salsa,Regular,3.5 oz,80,15,1.5,0,1.5,0,0,330,16,3,4,3
-Adult,Toppings,Tomatillo-Green Chili Salsa,Regular,2 fl oz,15,5,0,0,0,0,0,260,4,0,2,0
-Adult,Toppings,Tomatillo-Red Chili Salsa,Regular,2 fl oz,30,5,0,0,0,0,0,500,4,1,0,0
+Adult,Toppings,Fresh_Tomato_Salsa,Regular,3.5 oz,25,0,0,0,0,0,0,550,4,1,1,0
+Adult,Toppings,Roasted_Chili-Corn_Salsa,Regular,3.5 oz,80,15,1.5,0,1.5,0,0,330,16,3,4,3
+Adult,Toppings,Tomatillo-Green_Chili_Salsa,Regular,2 fl oz,15,5,0,0,0,0,0,260,4,0,2,0
+Adult,Toppings,Tomatillo-Red_Chili_Salsa,Regular,2 fl oz,30,5,0,0,0,0,0,500,4,1,0,0
 Adult,Toppings,Cheese,Regular,1 oz,110,70,8,0,8,0,30,190,1,0,0,6
-Adult,Toppings,Sour Cream,Regular,2 oz,110,90,9,5,4,0,40,30,2,0,2,2
-Adult,Toppings,Guacomole (Side),Regular,4 oz,230,190,22,7,15,0,0,370,8,6,1,2
+Adult,Toppings,Sour_Cream,Regular,2 oz,110,90,9,5,4,0,40,30,2,0,2,2
+Adult,Toppings,Guacomole_(Side),Regular,4 oz,230,190,22,7,15,0,0,370,8,6,1,2
 Adult,Toppings,Guacomole,Large,8 oz,460,380,44,3.5,40.5,0,0,740,16,12,2,4
-Adult,Toppings,Queso Blanco (Entree),Regular,2 oz,120,80,9,7,2,0,30,250,4,0,1,5
-Adult,Toppings,Queso Blanco (Side),Regular,4 oz,240,170,18,6,11,1,60,490,8,0,2,10
-Adult,Toppings,Queso Blanco,Large,8 oz,480,330,37,12,23.5,1.5,120,980,16,1,5,20
-Adult,Veggies,Supergreens Mix,Large,2.5 oz,15,0,0,0,0,0,0,15,3,2,1,1
-Adult,Veggies,Romaine Lettuce,Regular,1 oz,5,0,0,0,0,0,0,0,1,1,0,0
-Adult,Side,Chips,Regular,4 oz,540,230,25,4,21,0,0,390,73,7,1,7
-Adult,Side,Chips,Regular,6 oz,810,350,38,6,31.5,0,0,590,110,11,2,11
+Adult,Toppings,Queso_Blanco_(Entree),Regular,2 oz,120,80,9,7,2,0,30,250,4,0,1,5
+Adult,Toppings,Queso_Blanco_(Side),Regular,4 oz,240,170,18,6,11,1,60,490,8,0,2,10
+Adult,Toppings,Queso_Blanco,Large,8 oz,480,330,37,12,23.5,1.5,120,980,16,1,5,20
+Adult,Veggies,Supergreens_Mix,Large,2.5 oz,15,0,0,0,0,0,0,15,3,2,1,1
+Adult,Veggies,Romaine_Lettuce,Regular,1 oz,5,0,0,0,0,0,0,0,1,1,0,0
+Adult,Side,Chips_(Regular),Regular,4 oz,540,230,25,4,21,0,0,390,73,7,1,7
+Adult,Side,Chips_(Large),Regular,6 oz,810,350,38,6,31.5,0,0,590,110,11,2,11
