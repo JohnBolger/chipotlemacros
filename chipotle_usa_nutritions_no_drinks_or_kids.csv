@@ -1,7 +1,7 @@
 Menu Type,Menu Category,Item,Size Type,Per Serving Size,Total Calories (cal),Total Fat Calories (cal),Total Fats (g),Saturated Fats (g),Non-Saturated Fats (g),Trans Fats (g),Cholesterol (mg),Sodium (g),Carbohydrates (g),Dietary Fiber (g),Sugar (g),Protein (g)
 Adult,Burrito,Tortilla,Regular,1 ea,320,80,9,0.5,8.5,0,0,600,50,3,0,8
-Adult,Rice,Cilantro-Lime_Brown_Rice,Regular,4 oz,210,50,6,1,5,0,0,190,36,2,0,4
-Adult,Rice,Cilantro-Lime_White_Rice,Regular,4 oz,210,35,4,0.5,3.5,0,0,350,40,1,0,4
+Adult,Rice,Cilantro_Lime_Brown_Rice,Regular,4 oz,210,50,6,1,5,0,0,190,36,2,0,4
+Adult,Rice,Cilantro_Lime_White_Rice,Regular,4 oz,210,35,4,0.5,3.5,0,0,350,40,1,0,4
 Adult,Beans,Black_Beans,Regular,4 oz,130,15,1.5,0,1.5,0,0,210,22,7,2,8
 Adult,Beans,Pinto_Beans,Regular,4 oz,130,10,1.5,0,1.5,0,0,210,21,8,1,8
 Adult,Veggies,Fajita_Vegetables,Regular,2.5 oz,20,0,0,0,0,0,0,150,5,1,2,1
@@ -13,9 +13,9 @@ Adult,Protein,Garlic_Guajillo_Steak,Regular,4 oz,250,130,15,5,10,0,80,480,3,2,1,
 Adult,Protein,Pollo_Asado,Regular,4 oz,210,100,12,3,9,0,80,740,3,3,0,22
 Adult,Protein,Sofritas,Regular,4 oz,150,80,10,1.5,8.5,0,0,560,9,3,5,8
 Adult,Toppings,Fresh_Tomato_Salsa,Regular,3.5 oz,25,0,0,0,0,0,0,550,4,1,1,0
-Adult,Toppings,Roasted_Chili-Corn_Salsa,Regular,3.5 oz,80,15,1.5,0,1.5,0,0,330,16,3,4,3
-Adult,Toppings,Tomatillo-Green_Chili_Salsa,Regular,2 fl oz,15,5,0,0,0,0,0,260,4,0,2,0
-Adult,Toppings,Tomatillo-Red_Chili_Salsa,Regular,2 fl oz,30,5,0,0,0,0,0,500,4,1,0,0
+Adult,Toppings,Roasted_Chili_Corn_Salsa,Regular,3.5 oz,80,15,1.5,0,1.5,0,0,330,16,3,4,3
+Adult,Toppings,Tomatillo_Green_Chili_Salsa,Regular,2 fl oz,15,5,0,0,0,0,0,260,4,0,2,0
+Adult,Toppings,Tomatillo_Red_Chili_Salsa,Regular,2 fl oz,30,5,0,0,0,0,0,500,4,1,0,0
 Adult,Toppings,Cheese,Regular,1 oz,110,70,8,0,8,0,30,190,1,0,0,6
 Adult,Toppings,Sour_Cream,Regular,2 oz,110,90,9,5,4,0,40,30,2,0,2,2
 Adult,Toppings,Guacomole_(Side),Regular,4 oz,230,190,22,7,15,0,0,370,8,6,1,2
