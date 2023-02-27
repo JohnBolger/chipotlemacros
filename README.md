@@ -1,3 +1,2 @@
-# chipotlemacros
-
-https://towardsdatascience.com/deploy-a-public-streamlit-web-app-for-free-heres-how-bf56d46b2abe
+# Link to app
+https://johnbolger-chipotlemacros-chipotle-macros-app-xajg95.streamlit.app/
