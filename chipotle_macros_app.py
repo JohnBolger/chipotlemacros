@@ -13,8 +13,6 @@ import plotly.express as px
 import streamlit as st
 import random
 from PIL import Image
-import requests
-from io import BytesIO
 
 
 url = "https://raw.githubusercontent.com/JohnBolger/chipotlemacros/main/chipotle_usa_nutritions_no_drinks_or_kids.csv"
@@ -176,13 +174,14 @@ st.header("Order:")
 fig = px.pie(values = [ProtienMin, CarbsMin, TotalFat_min], names=['Protein', 'Carbs', 'TotalFat_min'], color_discrete_sequence=['#451400', "#A81612", "White"])
 
 
+
 col1, col2, col3 = st.columns(3)
 col1.write(order)
 #col2.metric("Calories", str(cals))
 #col2.metric("Protein", str(protein) + "g")
 #col2.metric("Fat", str(fat) + "g")
 #col2.metric("Carbs", str(carbs) + "g")
-col3.markdown('![](Chipotle_Mexican_Grill_logo.png)') 
+col3.image('https://www.google.com/search?q=chipotle&rlz=1C1CHBF_enUS919US919&sxsrf=AJOqlzWjx59SgEja3aXktDVWeqPcRTM95A:1678076032686&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjT_tWuuMb9AhXsFVkFHVSLAQMQ0pQJegQIBhAG&biw=1920&bih=937&dpr=1#imgrc=ZJkz-iWDEddiNM') 
 
 st.sidebar.plotly_chart(fig, use_container_width=True)
 
