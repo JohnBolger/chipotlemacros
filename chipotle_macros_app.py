@@ -12,6 +12,10 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import streamlit as st
 import random
+from PIL import Image
+import requests
+from io import BytesIO
+
 
 url = "https://raw.githubusercontent.com/JohnBolger/chipotlemacros/main/chipotle_usa_nutritions_no_drinks_or_kids.csv"
 nut_facts = pd.read_csv(url)
@@ -171,17 +175,16 @@ st.header("Order:")
 # Pie Chart
 fig = px.pie(values = [ProtienMin, CarbsMin, TotalFat_min], names=['Protein', 'Carbs', 'TotalFat_min'], color_discrete_sequence=['#451400', "#A81612", "White"])
 
+
 col1, col2, col3 = st.columns(3)
 col1.write(order)
 #col2.metric("Calories", str(cals))
 #col2.metric("Protein", str(protein) + "g")
 #col2.metric("Fat", str(fat) + "g")
 #col2.metric("Carbs", str(carbs) + "g")
-col3.image('Chipotle_Mexican_Grill_logo.png') 
+col3.markdown('![](Chipotle_Mexican_Grill_logo.png)') 
 
 st.sidebar.plotly_chart(fig, use_container_width=True)
-
-
 
 
 st.header("Full Nutrition Facts:")
