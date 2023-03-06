@@ -17,10 +17,10 @@ url = "https://raw.githubusercontent.com/JohnBolger/chipotlemacros/main/chipotle
 nut_facts = pd.read_csv(url)
 
 st.title('Chipotle Macros Tool')
-st.text('''          Enter the macronutrient requirements for your chipotle order along with an item 
-        that you must have and an item that you don't want in your order. This app 
+st.text('''          Enter the macronutrient requirements for your chipotle order along with items 
+        that you must have and items that you don't want in your order. This app 
         will optimize your order for the least amount of calories and provide you with
-        the nutrition facts for your order.''')
+        the full nutrition facts.''')
 
 # Convert the item names to a list
 MenuItems = nut_facts.Item.tolist()
@@ -42,10 +42,8 @@ MenuItems_vars = LpVariable.dicts("MenuItems",MenuItems,lowBound=0,
 
 st.sidebar.write('Constraints')
 
-want = []
 want = st.sidebar.multiselect('Select up to 3 items that you want in your order:', nut_facts['Item'], max_selections=3)
 
-no_want = []
 no_want = st.sidebar.multiselect('Select up to 3 items that you don\'t want in your order:', nut_facts['Item'], max_selections=3)
 
 TotalFat_min = st.sidebar.number_input('Total Fat', value=50)
@@ -162,40 +160,32 @@ fat = int(nut_matrix[0,2])
 carbs = int(nut_matrix[0,8])
 que = [protein, carbs, fat]
 
-st.header("Order: " + order)
-
-# Pie Chart
-labels = 'Protein', 'Carbs', 'Fat'
-sizes = [protein,carbs,fat]
-
-fig1, ax1 = plt.subplots()
-ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-ax1.axis('equal')
-
-fig = px.pie(values = que, names=['Protein', 'Carbs', 'Fat'], color_discrete_sequence=px.colors.sequential.Jet)
-
-col1, col2 = st.columns(2)
-col1.plotly_chart(fig, use_container_width=True)
-col2.pyplot(fig1)
-
-
-
-
-
-
-st.header("Nutrition Facts:")
-
-
-
-
-col1, col2, col3, col4, col5 = st.columns(5)
+col1, col2, col3, col4 = st.columns(4)
 col1.metric("Calories", str(cals))
 col2.metric("Protein", str(protein) + "g")
 col3.metric("Fat", str(fat) + "g")
 col4.metric("Carbs", str(carbs) + "g")
-col5.metric("Sodium", str(int(nut_matrix[0,7])) + "mg")
 
-st.write("Full:")
+st.header("Order:")
+
+# Pie Chart
+fig = px.pie(values = [ProtienMin, CarbsMin, TotalFat_min], names=['Protein', 'Carbs', 'TotalFat_min'], color_discrete_sequence=['#451400', "#A81612", "White"])
+
+col1, col2, col3 = st.columns(3)
+col1.write(order)
+#col2.metric("Calories", str(cals))
+#col2.metric("Protein", str(protein) + "g")
+#col2.metric("Fat", str(fat) + "g")
+#col2.metric("Carbs", str(carbs) + "g")
+col3.image('Chipotle_Mexican_Grill_logo.png') 
+
+st.sidebar.plotly_chart(fig, use_container_width=True)
+
+
+
+
+st.header("Full Nutrition Facts:")
+
 
 st.table(df_order)
 
