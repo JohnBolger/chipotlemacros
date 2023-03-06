@@ -9,8 +9,8 @@ import pandas as pd
 import numpy as np
 from pulp import *
 import matplotlib.pyplot as plt
+import plotly.express as px
 import streamlit as st
-import circlify
 import random
 
 url = "https://raw.githubusercontent.com/JohnBolger/chipotlemacros/main/chipotle_usa_nutritions_no_drinks_or_kids.csv"
@@ -42,18 +42,17 @@ MenuItems_vars = LpVariable.dicts("MenuItems",MenuItems,lowBound=0,
 
 st.sidebar.write('Constraints')
 
-must_have = st.sidebar.selectbox('"Must-have" item', nut_facts['Item'])
+want = []
+want = st.sidebar.multiselect('Select up to 3 items that you want in your order:', nut_facts['Item'], max_selections=3)
 
-dont_want = st.sidebar.selectbox('"Don\'t want" item', nut_facts['Item'])
+no_want = []
+no_want = st.sidebar.multiselect('Select up to 3 items that you don\'t want in your order:', nut_facts['Item'], max_selections=3)
 
-TotalFat_min = st.sidebar.number_input('Total Fat Min', value=10)
-TotalFat_max = st.sidebar.number_input('Total Fat Max', value=70)
+TotalFat_min = st.sidebar.number_input('Total Fat', value=50)
 
-CarbsMin = st.sidebar.number_input('Carbohydrates Min', value=50)
-CarbsMax = st.sidebar.number_input('Carbohydrates Max', value=260)
+CarbsMin = st.sidebar.number_input('Carbohydrates', value=100)
 
-ProtienMin = st.sidebar.number_input('Protien Min', value=15)
-ProtienMax = st.sidebar.number_input('Protien Max', value=85)
+ProtienMin = st.sidebar.number_input('Protien', value=40)
 
 
 
@@ -61,19 +60,34 @@ ProtienMax = st.sidebar.number_input('Protien Max', value=85)
 
 # First entry is the calorie calculation (this is our objective)
 prob += lpSum([Calories[i]*MenuItems_vars[i] for i in MenuItems]), "Calories"
-# Must-have
-prob += MenuItems_vars[must_have] >= 1, "MustHave"
-# Dont want
-prob += MenuItems_vars[dont_want] <= 0, "DontWant"
+# Yes
+if len(want) == 1:
+    prob += MenuItems_vars[want[0]]  >= 1, "MustHave1"
+if len(want) == 2:
+    prob += MenuItems_vars[want[0]]  >= 1, "MustHave1"
+    prob += MenuItems_vars[want[1]]  >= 1, "MustHave2"
+if len(want) == 3:
+    prob += MenuItems_vars[want[0]]  >= 1, "MustHave1"
+    prob += MenuItems_vars[want[1]]  >= 1, "MustHave2"
+    prob += MenuItems_vars[want[2]]  >= 1, "MustHave3"
+    
+# No
+if len(no_want) == 1:
+    prob += MenuItems_vars[no_want[0]] <= 0, "DontWant1"
+if len(no_want) == 2:
+    prob += MenuItems_vars[no_want[0]] <= 0, "DontWant1"
+    prob += MenuItems_vars[no_want[1]] <= 0, "DontWant2"
+if len(no_want) == 3:
+    prob += MenuItems_vars[no_want[0]] <= 0, "DontWant1"
+    prob += MenuItems_vars[no_want[1]] <= 0, "DontWant2"
+    prob += MenuItems_vars[no_want[2]] <= 0, "DontWant3"
+
 # Total Fat between x-y g
 prob += lpSum([TotalFat[i]*MenuItems_vars[i] for i in MenuItems]) >= TotalFat_min, "TotalFat_lower"
-prob += lpSum([TotalFat[i]*MenuItems_vars[i] for i in MenuItems]) <= TotalFat_max, "TotalFat_upper"
 # Carbohydrates between x-y g
 prob += lpSum([Carbohydrates[i]*MenuItems_vars[i] for i in MenuItems]) >= CarbsMin, "Carbohydrates_lower"
-prob += lpSum([Carbohydrates[i]*MenuItems_vars[i] for i in MenuItems]) <= CarbsMax, "Carbohydrates_upper"
 # Protein between x-y g
 prob += lpSum([Protein[i]*MenuItems_vars[i] for i in MenuItems]) >= ProtienMin, "Protein_lower"
-prob += lpSum([Protein[i]*MenuItems_vars[i] for i in MenuItems]) <= ProtienMax, "Protein_upper"
 
 
 prob.solve()
@@ -99,47 +113,8 @@ for v in prob.variables():
 df_results = pd.DataFrame([varsdict])
 
 
-# Create just a figure and only one subplot
-fig, ax = plt.subplots(figsize=(15,10))
-
-# Title
-ax.set_title('Menu Item')
-
-# Remove axes
-ax.axis('off')
-
-circles = circlify.circlify(
-    varsdict.values(), 
-    show_enclosure=False, 
-    target_enclosure=circlify.Circle(x=0, y=0, r=1)
-)
-
-# Find axis boundaries
-lim = max(
-    max(
-        abs(circle.x) + circle.r,
-        abs(circle.y) + circle.r,
-    )
-    for circle in circles
-)
-plt.xlim(-lim, lim)
-plt.ylim(-lim, lim)
-
 # list of labels
 labels = [i[10:] for i in varsdict.keys()]
-
-
-
-# print circles
-for circle, label in zip(circles, labels):
-    x, y, r = circle
-    ax.add_patch(plt.Circle((x, y), r*0.7, alpha=0.9, linewidth=2, facecolor="#%06x" % random.randint(0, 0xFFFFFF), edgecolor="black"))
-    plt.annotate(label, (x,y ) ,va='center', ha='center', bbox=dict(facecolor='white', edgecolor='black', boxstyle='round', pad=.5))
-    value = circle.ex['datum']
-    plt.annotate(value, (x,y-.1 ) ,va='center', ha='center', bbox=dict(facecolor='white', edgecolor='black', boxstyle='round', pad=.5))
-
-
-
 
 # Make list at bottom
 quant = [i for i in varsdict.values()]
@@ -181,17 +156,43 @@ hide_table_row_index = """
 # Inject CSS with Markdown
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
+cals = int(nut_matrix[0,0])
+protein = int(nut_matrix[0,11])
+fat = int(nut_matrix[0,2])
+carbs = int(nut_matrix[0,8])
+que = [protein, carbs, fat]
 
 st.header("Order: " + order)
+
+# Pie Chart
+labels = 'Protein', 'Carbs', 'Fat'
+sizes = [protein,carbs,fat]
+
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+ax1.axis('equal')
+
+fig = px.pie(values = que, names=['Protein', 'Carbs', 'Fat'], color_discrete_sequence=px.colors.sequential.Jet)
+
+col1, col2 = st.columns(2)
+col1.plotly_chart(fig, use_container_width=True)
+col2.pyplot(fig1)
+
+
+
+
+
 
 st.header("Nutrition Facts:")
 
 
+
+
 col1, col2, col3, col4, col5 = st.columns(5)
-col1.metric("Calories", str(int(nut_matrix[0,0])))
-col2.metric("Protein", str(int(nut_matrix[0,11])) + "g")
-col3.metric("Fat", str(int(nut_matrix[0,2])) + "g")
-col4.metric("Carbs", str(int(nut_matrix[0,8])) + "g")
+col1.metric("Calories", str(cals))
+col2.metric("Protein", str(protein) + "g")
+col3.metric("Fat", str(fat) + "g")
+col4.metric("Carbs", str(carbs) + "g")
 col5.metric("Sodium", str(int(nut_matrix[0,7])) + "mg")
 
 st.write("Full:")
