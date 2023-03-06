@@ -3,3 +3,4 @@ pulp
 pandas
 circlify
 matplotlib
+plotly
