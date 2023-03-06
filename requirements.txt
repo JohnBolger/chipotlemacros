@@ -4,6 +4,3 @@ pandas
 circlify
 matplotlib
 plotly
-PIL
-requests
-io
