@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import streamlit as st
 import random
-from PIL import Image
+
 
 
 url = "https://raw.githubusercontent.com/JohnBolger/chipotlemacros/main/chipotle_usa_nutritions_no_drinks_or_kids.csv"
@@ -181,7 +181,7 @@ col1.write(order)
 #col2.metric("Protein", str(protein) + "g")
 #col2.metric("Fat", str(fat) + "g")
 #col2.metric("Carbs", str(carbs) + "g")
-col3.image('https://www.google.com/search?q=chipotle&rlz=1C1CHBF_enUS919US919&sxsrf=AJOqlzWjx59SgEja3aXktDVWeqPcRTM95A:1678076032686&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjT_tWuuMb9AhXsFVkFHVSLAQMQ0pQJegQIBhAG&biw=1920&bih=937&dpr=1#imgrc=ZJkz-iWDEddiNM') 
+col3.image('https://raw.githubusercontent.com/JohnBolger/chipotlemacros/main/Chipotle_Mexican_Grill_logo.png') 
 
 st.sidebar.plotly_chart(fig, use_container_width=True)
 
